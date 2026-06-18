@@ -21,9 +21,13 @@ function getAuth() {
       `Set GOOGLE_SERVICE_ACCOUNT_KEY in .env`
     );
   }
+  // Load credentials directly + useJWTAccessWithScope bypasses gtoken's
+  // node-fetch v2 gzip bug on Node 22+ (ERR_STREAM_PREMATURE_CLOSE)
+  const credentials = JSON.parse(fs.readFileSync(keyFile, 'utf8'));
   return new google.auth.GoogleAuth({
-    keyFile,
+    credentials,
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    useJWTAccessWithScope: true,
   });
 }
 
