@@ -19,6 +19,7 @@
  *   mem_list_slabs → list all available slabs + their status
  */
 
+import './patch.js';
 import 'dotenv/config';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
@@ -27,6 +28,7 @@ import { z } from 'zod';
 import { execSync } from 'child_process';
 import { readPageDir } from './page-dir.js';
 import { pullFromSheet, pushToSheet, readLocalCSV, upsertRow } from './sheets.js';
+import uiRouter from './ui.js';
 
 const PORT = process.env.MCP_PORT ?? 3456;
 const DIR  = process.env.LOCAL_STORE_PATH?.replace('/store/master.csv', '') ?? '.';
@@ -154,6 +156,10 @@ server.tool('mem_upsert',
 // ---------------------------------------------------------------------------
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Web UI
+app.use('/ui', uiRouter);
 
 // Health check
 app.get('/health', (_, res) => res.json({ status: 'ok', server: 'mem-manager', version: '0.1.0' }));
@@ -169,9 +175,9 @@ app.all('/mcp', async (req, res) => {
 });
 
 const httpServer = app.listen(PORT, () => {
-  console.log(`\n🧠  mem-manager MCP server running`);
-  console.log(`    http://gamgee:${PORT}/mcp`);
-  console.log(`    http://10.0.0.208:${PORT}/mcp`);
+  console.log(`\n🧠  mem-manager running on port ${PORT}`);
+  console.log(`    MCP:    http://10.0.0.208:${PORT}/mcp`);
+  console.log(`    UI:     http://10.0.0.208:${PORT}/ui`);
   console.log(`    Health: http://10.0.0.208:${PORT}/health\n`);
 });
 
