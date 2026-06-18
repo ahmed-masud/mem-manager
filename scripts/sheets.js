@@ -33,7 +33,14 @@ function getAuth() {
 
 export function getSheetsClient() {
   const auth = getAuth();
-  return google.sheets({ version: 'v4', auth });
+  // Pass native fetch as fetchImplementation so gaxios doesn't fall back
+  // to node-fetch v2's broken Gunzip handling on Node 22+
+  const sheets = google.sheets({ version: 'v4', auth });
+  sheets.context._options = {
+    ...sheets.context._options,
+    fetchImplementation: globalThis.fetch.bind(globalThis),
+  };
+  return sheets;
 }
 
 // ---------------------------------------------------------------------------
