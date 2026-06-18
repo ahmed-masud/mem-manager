@@ -1,0 +1,12 @@
+# Credentials — NEVER commit
+credentials/*.json
+.env
+
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+# Local cache backups
+store/master.csv.bak

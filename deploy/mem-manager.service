@@ -1,0 +1,19 @@
+[Unit]
+Description=mem-manager — Claude memory MCP server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ahmed
+WorkingDirectory=/home/ahmed/mem-manager
+ExecStart=/usr/bin/node /home/ahmed/mem-manager/scripts/mcp-server.js
+Restart=on-failure
+RestartSec=10
+EnvironmentFile=/home/ahmed/mem-manager/.env
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=mem-manager
+
+[Install]
+WantedBy=multi-user.target

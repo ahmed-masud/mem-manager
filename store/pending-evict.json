@@ -1,0 +1,14 @@
+{
+  "generated": "2026-06-18",
+  "evictions": [
+    {
+      "slab_id": "pipeline-closed",
+      "slots": [
+        26
+      ],
+      "keys": [
+        "closed-all"
+      ]
+    }
+  ]
+}

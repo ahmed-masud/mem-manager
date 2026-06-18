@@ -1,0 +1,27 @@
+{
+  "name": "mem-manager",
+  "version": "0.1.0",
+  "description": "Virtual memory manager for Claude — backed by Google Sheets, served via MCP",
+  "type": "module",
+  "main": "scripts/mcp-server.js",
+  "scripts": {
+    "start":        "node scripts/mcp-server.js",
+    "status":       "node scripts/status.js",
+    "load":         "node scripts/load.js",
+    "evict":        "node scripts/evict.js",
+    "evict:lru":    "node scripts/evict.js --lru",
+    "evict:stale":  "node scripts/evict.js --stale",
+    "sync":         "node scripts/sync.js",
+    "push":         "node scripts/sync.js --push",
+    "pull":         "node scripts/sync.js --pull",
+    "setup":        "node scripts/setup-sheet.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.13.0",
+    "csv-parse": "^5.5.6",
+    "csv-stringify": "^6.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^5.1.0",
+    "googleapis": "^144.0.0"
+  }
+}
