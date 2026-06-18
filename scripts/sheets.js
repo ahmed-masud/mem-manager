@@ -3,16 +3,12 @@
  * Handles auth + all read/write ops against the backing store sheet.
  */
 
+import './patch.js';           // ← must be first: shims window.fetch before gaxios loads
 import 'dotenv/config';
 import { google } from 'googleapis';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
 import fs from 'fs';
-import gaxios from 'gaxios';
-
-// Disable gzip decompression globally on gaxios — fixes node-fetch v2's
-// ERR_STREAM_PREMATURE_CLOSE bug on Node 22+ (affects gtoken OAuth calls)
-gaxios.instance.defaults = { ...gaxios.instance.defaults, compress: false };
 
 // ---------------------------------------------------------------------------
 // Auth
@@ -38,14 +34,7 @@ function getAuth() {
 
 export function getSheetsClient() {
   const auth = getAuth();
-  // Pass native fetch as fetchImplementation so gaxios doesn't fall back
-  // to node-fetch v2's broken Gunzip handling on Node 22+
-  const sheets = google.sheets({ version: 'v4', auth });
-  sheets.context._options = {
-    ...sheets.context._options,
-    fetchImplementation: globalThis.fetch.bind(globalThis),
-  };
-  return sheets;
+  return google.sheets({ version: 'v4', auth });
 }
 
 // ---------------------------------------------------------------------------
