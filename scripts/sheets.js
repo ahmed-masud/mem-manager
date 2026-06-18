@@ -8,6 +8,11 @@ import { google } from 'googleapis';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
 import fs from 'fs';
+import gaxios from 'gaxios';
+
+// Disable gzip decompression globally on gaxios — fixes node-fetch v2's
+// ERR_STREAM_PREMATURE_CLOSE bug on Node 22+ (affects gtoken OAuth calls)
+gaxios.instance.defaults = { ...gaxios.instance.defaults, compress: false };
 
 // ---------------------------------------------------------------------------
 // Auth
