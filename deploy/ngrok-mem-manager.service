@@ -1,0 +1,18 @@
+[Unit]
+Description=ngrok tunnel — mem-manager MCP (port 3456)
+After=network-online.target mem-manager.service
+Wants=network-online.target
+Requires=mem-manager.service
+
+[Service]
+Type=simple
+User=masud
+ExecStart=/usr/local/bin/ngrok http 3456 --domain=skyrocket-favoring-slum.ngrok-free.dev --log=stdout
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ngrok-mem-manager
+
+[Install]
+WantedBy=multi-user.target
