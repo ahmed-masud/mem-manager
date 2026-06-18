@@ -5,15 +5,17 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=ahmed
-WorkingDirectory=/home/ahmed/mem-manager
-ExecStart=/usr/bin/node /home/ahmed/mem-manager/scripts/mcp-server.js
-Restart=on-failure
-RestartSec=10
-EnvironmentFile=/home/ahmed/mem-manager/.env
+User=masud
+WorkingDirectory=/home/masud/mem-manager
+ExecStart=/usr/bin/node /home/masud/mem-manager/scripts/mcp-server.js
+Restart=always
+RestartSec=5
+EnvironmentFile=/home/masud/mem-manager/.env
+StandardInput=null
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=mem-manager
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target

@@ -168,9 +168,14 @@ app.all('/mcp', async (req, res) => {
   await transport.handleRequest(req, res, req.body);
 });
 
-app.listen(PORT, () => {
+const httpServer = app.listen(PORT, () => {
   console.log(`\n🧠  mem-manager MCP server running`);
   console.log(`    http://gamgee:${PORT}/mcp`);
   console.log(`    http://10.0.0.208:${PORT}/mcp`);
   console.log(`    Health: http://10.0.0.208:${PORT}/health\n`);
 });
+
+// Graceful shutdown — keeps process alive under systemd
+process.on('SIGTERM', () => { console.log('SIGTERM received, shutting down'); httpServer.close(); });
+process.on('SIGINT',  () => { console.log('SIGINT received, shutting down');  httpServer.close(); });
+process.stdin.resume(); // keep alive even with stdin=null
