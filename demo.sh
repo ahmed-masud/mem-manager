@@ -23,6 +23,7 @@ ask_ollama() {
     -H 'Content-Type: application/json' \
     -d "$(jq -n --arg q "$question" --arg m "$MODEL" \
       '{model:$m, messages:[{role:"user",content:$q}], stream:false}')" \
+    | grep -v '^$' | tail -1 \
     | jq -r '.message.content // .error // "No response"'
 }
 
