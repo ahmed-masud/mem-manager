@@ -70,17 +70,25 @@ async function proxyToOllama(path, body, res) {
   });
 
   res.status(upstream.status);
-  upstream.headers.forEach((v, k) => res.setHeader(k, v));
 
-  // Stream NDJSON back chunk by chunk
-  const reader = upstream.body.getReader();
-  const decoder = new TextDecoder();
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    res.write(decoder.decode(value, { stream: true }));
+  if (body.stream === false) {
+    // Non-streaming: collect full NDJSON, return last valid JSON line
+    const text = await upstream.text();
+    const last = text.trim().split('\n').filter(Boolean).at(-1);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(last);
+  } else {
+    // Streaming: pipe NDJSON chunks through as-is
+    upstream.headers.forEach((v, k) => res.setHeader(k, v));
+    const reader = upstream.body.getReader();
+    const decoder = new TextDecoder();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      res.write(decoder.decode(value, { stream: true }));
+    }
+    res.end();
   }
-  res.end();
 }
 
 // ---------------------------------------------------------------------------

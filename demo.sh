@@ -23,8 +23,14 @@ ask_ollama() {
     -H 'Content-Type: application/json' \
     -d "$(jq -n --arg q "$question" --arg m "$MODEL" \
       '{model:$m, messages:[{role:"user",content:$q}], stream:false}')" \
-    | grep -v '^$' | tail -1 \
-    | jq -r '.message.content // .error // "No response"'
+    | python3 -c "
+import sys, json
+data = sys.stdin.read().strip()
+# handle both single JSON and NDJSON
+lines = [l for l in data.split('\n') if l.strip()]
+obj = json.loads(lines[-1])
+print(obj.get('message', {}).get('content') or obj.get('error') or 'No response')
+"
 }
 
 clear
