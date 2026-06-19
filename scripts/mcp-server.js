@@ -47,12 +47,10 @@ function run(script, args = '') {
 }
 
 // ---------------------------------------------------------------------------
-// MCP Server
+// MCP Server factory — fresh instance per request (SDK requirement)
 // ---------------------------------------------------------------------------
-const server = new McpServer({
-  name:    'mem-manager',
-  version: '0.1.0',
-});
+function createMcpServer() {
+  const server = new McpServer({ name: 'mem-manager', version: '0.1.0' });
 
 // --- mem_status -------------------------------------------------------------
 server.tool('mem_status',
@@ -151,8 +149,11 @@ server.tool('mem_upsert',
   }
 );
 
+  return server;
+}
+
 // ---------------------------------------------------------------------------
-// Express + SSE transport
+// Express + HTTP transport
 // ---------------------------------------------------------------------------
 const app = express();
 app.use(express.json());
@@ -164,10 +165,11 @@ app.use('/ui', uiRouter);
 // Health check
 app.get('/health', (_, res) => res.json({ status: 'ok', server: 'mem-manager', version: '0.1.0' }));
 
-// MCP endpoint
+// MCP endpoint — fresh server instance per request
 app.all('/mcp', async (req, res) => {
+  const server = createMcpServer();
   const transport = new StreamableHTTPServerTransport({
-    sessionIdGenerator: undefined,   // stateless
+    sessionIdGenerator: undefined,
   });
   res.on('close', () => transport.close());
   await server.connect(transport);
