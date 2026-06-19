@@ -191,6 +191,8 @@ router.post('/api/upsert', async (req, res) => {
     const pulled = await pullFromSheet();
     const { writeLocalCSV } = await import('./sheets.js');
     writeLocalCSV(LOCAL, pulled);
+    // tell HTMX to refresh the sidebar too
+    res.setHeader('HX-Trigger-After-Swap', 'slabsChanged');
     res.redirect(303, `/ui/api/slabs/${slab_id}/entries`);
   } catch (e) {
     res.status(500).send(statusBar(`❌ Upsert failed: ${e.message}`, 'err'));
@@ -207,6 +209,7 @@ router.delete('/api/entry/:slab/:key', async (req, res) => {
     const { writeLocalCSV } = await import('./sheets.js');
     writeLocalCSV(LOCAL, rows);
     await pushToSheet(rows);
+    res.setHeader('HX-Trigger-After-Swap', 'slabsChanged');
     res.redirect(303, `/ui/api/slabs/${slab}/entries`);
   } catch (e) {
     res.status(500).send(statusBar(`❌ Delete failed: ${e.message}`, 'err'));
