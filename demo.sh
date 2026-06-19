@@ -2,10 +2,10 @@
 # =============================================================================
 #  mem-manager demo — shows memory-aware Ollama in action
 #  Run: bash /home/masud/mem-manager/demo.sh [model]
-#  Default model: llama3.2:1b  (fast, ~3s response)
+#  Default model: llama3.2:3b  (good balance of speed + accuracy)
 # =============================================================================
 
-MODEL=${1:-llama3.2:1b}
+MODEL=${1:-llama3.2:3b}
 PROXY=http://localhost:11435
 NATIVE=http://localhost:11434
 
@@ -76,10 +76,10 @@ echo ""
 # ── Step 4: One more — specific memory test ──────────────────────────────────
 echo -e "${DIM}  Trying another question...${RESET}"
 echo ""
-echo -e "${BOLD}${BLUE}  \"What is my home address?\"${RESET}"
+echo -e "${BOLD}${BLUE}  \"Based on my profile context, where do I live?\"${RESET}"
 echo ""
 echo -e "${GREEN}  ┌─ Ollama + mem-manager ─────────────────────────────────┐${RESET}"
-ask_ollama "$PROXY" "What is my home address? Answer from the context you have been given." \
+ask_ollama "$PROXY" "Based on the profile context you have been given, what city and address do I live at? Just state what is in your context." \
   | fold -s -w 56 | sed 's/^/  │  /'
 echo -e "${GREEN}  └───────────────────────────────────────────────────────┘${RESET}"
 echo ""
