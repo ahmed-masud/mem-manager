@@ -137,7 +137,7 @@ app.post('/api/generate', async (req, res) => {
 // ---------------------------------------------------------------------------
 // All other routes — pass through untouched
 // ---------------------------------------------------------------------------
-app.all('*', async (req, res) => {
+app.all('/{*}', async (req, res) => {
   const url = `${OLLAMA_HOST}${req.path}`;
   const isGet = req.method === 'GET';
 
