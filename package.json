@@ -5,16 +5,17 @@
   "type": "module",
   "main": "scripts/mcp-server.js",
   "scripts": {
-    "start":        "node scripts/mcp-server.js",
-    "status":       "node scripts/status.js",
-    "load":         "node scripts/load.js",
-    "evict":        "node scripts/evict.js",
-    "evict:lru":    "node scripts/evict.js --lru",
-    "evict:stale":  "node scripts/evict.js --stale",
-    "sync":         "node scripts/sync.js",
-    "push":         "node scripts/sync.js --push",
-    "pull":         "node scripts/sync.js --pull",
-    "setup":        "node scripts/setup-sheet.js"
+    "start":           "node scripts/mcp-server.js",
+    "start:proxy":     "node scripts/ollama-proxy.js",
+    "status":          "node scripts/status.js",
+    "load":            "node scripts/load.js",
+    "evict":           "node scripts/evict.js",
+    "evict:lru":       "node scripts/evict.js --lru",
+    "evict:stale":     "node scripts/evict.js --stale",
+    "sync":            "node scripts/sync.js",
+    "push":            "node scripts/sync.js --push",
+    "pull":            "node scripts/sync.js --pull",
+    "setup":           "node scripts/setup-sheet.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.13.0",

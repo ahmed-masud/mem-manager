@@ -1,0 +1,21 @@
+[Unit]
+Description=mem-manager — Ollama memory proxy (:11435 → :11434)
+After=network-online.target mem-manager.service
+Wants=network-online.target
+Requires=mem-manager.service
+
+[Service]
+Type=simple
+User=masud
+WorkingDirectory=/home/masud/mem-manager
+ExecStart=/usr/bin/node /home/masud/mem-manager/scripts/ollama-proxy.js
+Restart=always
+RestartSec=5
+EnvironmentFile=/home/masud/mem-manager/.env
+StandardInput=null
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ollama-mem-proxy
+
+[Install]
+WantedBy=multi-user.target
