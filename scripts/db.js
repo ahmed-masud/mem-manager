@@ -14,8 +14,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DB_PATH   = process.env.LOCAL_DB_PATH
-                ?? path.join(__dirname, '../store/mem.db');
 
 const SCHEMA = `
   CREATE TABLE IF NOT EXISTS entries (
@@ -52,12 +50,20 @@ let _db = null;
 
 export function getDb() {
   if (!_db) {
-    _db = new Database(DB_PATH);
-    _db.pragma('journal_mode = WAL');    // concurrent readers + single writer
-    _db.pragma('synchronous = NORMAL'); // safe + fast (fsync on WAL checkpoint)
+    // Resolved here (not at module load) so tests can override LOCAL_DB_PATH
+    const dbPath = process.env.LOCAL_DB_PATH
+                ?? path.join(__dirname, '../store/mem.db');
+    _db = new Database(dbPath);
+    _db.pragma('journal_mode = WAL');
+    _db.pragma('synchronous = NORMAL');
     _db.exec(SCHEMA);
   }
   return _db;
+}
+
+/** Close and discard the singleton. Used in tests for isolation. */
+export function closeDb() {
+  if (_db) { _db.close(); _db = null; }
 }
 
 // ── Normalise incoming rows ──────────────────────────────────────────────────

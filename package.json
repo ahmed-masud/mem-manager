@@ -5,6 +5,7 @@
   "type": "module",
   "main": "scripts/mcp-server.js",
   "scripts": {
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --forceExit",
     "start": "node scripts/mcp-server.js",
     "start:proxy": "node scripts/ollama-proxy.js",
     "status": "node scripts/status.js",
@@ -17,6 +18,12 @@
     "pull": "node scripts/sync.js --pull",
     "setup": "node scripts/setup-sheet.js"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {},
+    "testMatch": ["**/tests/**/*.test.js"],
+    "extensionsToTreatAsEsm": []
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.13.0",
     "better-sqlite3": "^12.11.1",
@@ -25,5 +32,8 @@
     "dotenv": "^16.4.5",
     "express": "^5.1.0",
     "googleapis": "^144.0.0"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
   }
 }
