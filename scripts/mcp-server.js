@@ -31,6 +31,7 @@ import { dbAllRows, dbUpsert, dbImportRows, seedFromCSV } from './db.js';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
 import fs from 'fs';
+import morgan from 'morgan';
 import uiRouter from './ui.js';
 
 const PORT       = process.env.MCP_PORT ?? 3456;
@@ -171,6 +172,13 @@ server.tool('mem_upsert',
 // Express + HTTP transport
 // ---------------------------------------------------------------------------
 const app = express();
+
+// Request logging — compact timestamped format, skips /health polling noise
+morgan.token('ts', () => new Date().toISOString());
+app.use(morgan(':ts :method :url :status :response-time ms - :res[content-length]', {
+  skip: (req) => req.url === '/health',   // suppress high-frequency health checks
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
