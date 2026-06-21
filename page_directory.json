@@ -1,8 +1,8 @@
 {
   "last_updated": "2026-06-18",
   "total_slots": 30,
-  "slots_used": 26,
-  "slots_free": 4,
+  "slots_used": 27,
+  "slots_free": 3,
   "pinned_slots": [
     1,
     2,
@@ -125,11 +125,14 @@
       "last_accessed": "2026-06-18"
     },
     "interview-prep": {
-      "keys": [],
-      "slots": [],
+      "keys": [
+        "ncc-rafi-intro"
+      ],
+      "slots": [
+        26
+      ],
       "evictable": true,
-      "last_accessed": null,
-      "note": "NOT LOADED — available in store when needed"
+      "last_accessed": "2026-06-18"
     }
   }
 }

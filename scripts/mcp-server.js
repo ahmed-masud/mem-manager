@@ -27,11 +27,20 @@ import express from 'express';
 import { z } from 'zod';
 import { execSync } from 'child_process';
 import { readPageDir } from './page-dir.js';
-import { pullFromSheet, pushToSheet, readLocalCSV, upsertRow } from './sheets.js';
+import { dbAllRows, dbUpsert, dbImportRows, seedFromCSV } from './db.js';
+import { parse } from 'csv-parse/sync';
+import { stringify } from 'csv-stringify/sync';
+import fs from 'fs';
 import uiRouter from './ui.js';
 
-const PORT = process.env.MCP_PORT ?? 3456;
-const DIR  = process.env.LOCAL_STORE_PATH?.replace('/store/master.csv', '') ?? '.';
+const PORT       = process.env.MCP_PORT ?? 3456;
+const DIR        = process.env.LOCAL_STORE_PATH?.replace('/store/master.csv', '') ?? '.';
+const CSV_PATH   = process.env.LOCAL_STORE_PATH ?? null;
+const BACKUP_CSV = process.env.BACKUP_CSV ?? null;
+const COLS       = ['slab_id','slot_type','key','content','priority','last_accessed','evictable','notes'];
+
+// Seed SQLite from master.csv on first start (one-time migration)
+if (CSV_PATH) seedFromCSV(CSV_PATH);
 
 // ---------------------------------------------------------------------------
 // Helper — run a local script and return stdout
@@ -66,7 +75,7 @@ server.tool('mem_list_slabs',
   'List all slabs in the backing store with their loaded/unloaded status.',
   {},
   async () => {
-    const rows = readLocalCSV(process.env.LOCAL_STORE_PATH);
+    const rows = dbAllRows();
     const dir  = readPageDir();
     const slabs = [...new Set(rows.map(r => r.slab_id))].map(id => ({
       slab_id:       id,
@@ -109,31 +118,37 @@ server.tool('mem_evict_lru',
 
 // --- mem_sync_pull ----------------------------------------------------------
 server.tool('mem_sync_pull',
-  'Pull latest data from Google Sheet into local master.csv. Sheet is truth.',
+  'Restore SQLite from the local CSV backup file (BACKUP_CSV path).',
   {},
   async () => {
-    const rows = await pullFromSheet();
-    const { writeLocalCSV } = await import('./sheets.js');
-    writeLocalCSV(process.env.LOCAL_STORE_PATH, rows);
-    return { content: [{ type: 'text', text: `✅ Pulled ${rows.length} rows from Google Sheet.` }] };
+    if (!BACKUP_CSV || !fs.existsSync(BACKUP_CSV)) {
+      return { content: [{ type: 'text', text: '⚠️ No backup CSV found. Set BACKUP_CSV in .env or use the web UI to import.' }] };
+    }
+    const raw  = fs.readFileSync(BACKUP_CSV, 'utf8');
+    const rows = parse(raw, { columns: true, skip_empty_lines: true });
+    dbImportRows(rows);
+    return { content: [{ type: 'text', text: `✅ Restored ${rows.length} rows from ${BACKUP_CSV} into SQLite.` }] };
   }
 );
 
 // --- mem_sync_push ----------------------------------------------------------
 server.tool('mem_sync_push',
-  'Push local master.csv up to Google Sheet.',
+  'Save SQLite contents to the local CSV backup file (BACKUP_CSV path).',
   {},
   async () => {
-    const { readLocalCSV, pushToSheet } = await import('./sheets.js');
-    const rows = readLocalCSV(process.env.LOCAL_STORE_PATH);
-    await pushToSheet(rows);
-    return { content: [{ type: 'text', text: `✅ Pushed ${rows.length} rows to Google Sheet.` }] };
+    if (!BACKUP_CSV) {
+      return { content: [{ type: 'text', text: '⚠️ BACKUP_CSV not set in .env. Use the web UI Export button instead.' }] };
+    }
+    const rows = dbAllRows();
+    const csv  = stringify(rows, { header: true, columns: COLS });
+    fs.writeFileSync(BACKUP_CSV, csv, 'utf8');
+    return { content: [{ type: 'text', text: `✅ Saved ${rows.length} rows to ${BACKUP_CSV}.` }] };
   }
 );
 
 // --- mem_upsert -------------------------------------------------------------
 server.tool('mem_upsert',
-  'Add or update a single memory entry in the backing store and Google Sheet.',
+  'Add or update a single memory entry in the local SQLite store.',
   {
     slab_id:    z.string().describe('Slab category, e.g. contacts, interview-prep-ncc'),
     key:        z.string().describe('Unique key within the slab, e.g. rafi-ncc'),
@@ -144,7 +159,7 @@ server.tool('mem_upsert',
     notes:      z.string().default(''),
   },
   async (row) => {
-    await upsertRow({ ...row, last_accessed: new Date().toISOString().slice(0, 10) });
+    dbUpsert({ ...row, last_accessed: new Date().toISOString().slice(0, 10) });
     return { content: [{ type: 'text', text: `✅ Upserted [${row.slab_id}/${row.key}] to backing store.` }] };
   }
 );
@@ -186,4 +201,6 @@ const httpServer = app.listen(PORT, () => {
 // Graceful shutdown — keeps process alive under systemd
 process.on('SIGTERM', () => { console.log('SIGTERM received, shutting down'); httpServer.close(); });
 process.on('SIGINT',  () => { console.log('SIGINT received, shutting down');  httpServer.close(); });
-process.stdin.resume(); // keep alive even with stdin=null
+// Keep process alive under systemd (stdin may be /dev/null under nohup)
+try { process.stdin.resume(); } catch { /* non-tty env, ignore */ }
+process.stdin.on('error', () => { /* suppress EBADF from nohup/redirect */ });

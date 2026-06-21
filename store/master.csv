@@ -1,29 +1,163 @@
 slab_id,slot_type,key,content,priority,last_accessed,evictable,notes
 pinned,PINNED,address,"907 Guinness Crescent, Nepean, ON K2J 6G8",1,2026-06-18,NO,personal
-resume-rules,PINNED,php,"Add PHP (3/4/5/6) to Languages & Platforms in all resume builds — confirmed government/NRC work",1,2026-06-18,NO,resume rule
-experience-anchors,PINNED,f5,"F5 Networks client (2019-2022) under saf.ai: deployed Resiliate Cybernetic Engrams for real-time anomaly detection processing ~1B HTTP req/hr. NDA on details; F5 name public-safe. Always include as bullet under saf.ai.",1,2026-06-18,NO,experience
-experience-anchors,PINNED,allen-unwin,"Allen & Unwin (Australia 2002-2003) under Googgun: solved Harry Potter data leakage IBM couldn't fix in 2.5 years; fixed remotely in 5 days; travelled for zero-downtime hardening. Built gScarlet (world's first web UI for IPv4/IPv6 Linux firewall C+PHP5); sold to Morgenthaler Clinic/NRCan/NRC/CDND. Always include in Googgun section.",1,2026-06-18,NO,experience
-experience-anchors,PINNED,kaiser,"Kaiser Permanente (~2014) under Trustifier: designed session-aware HTTP/HTTPS proxy (WebSphere/Java) transparently mobilizing desktop apps to iPad with zero rewrites/downtime. Always include under Trustifier.",1,2026-06-18,NO,experience
-pipeline-active,WORKING,registry,"JOB PIPELINE REGISTRY | Next ID: 025 | Active: 20 | Closed: 5",2,2026-06-18,YES,index
-pipeline-active,WORKING,001-catsa,"#001 catsa-ciso | SCREENING | CATSA | CISO | Taleo 2469 | Applied 27 May | Contact: Katie HR | Next: Follow up re interview timeline",2,2026-06-18,YES,pipeline
-pipeline-active,WORKING,002-edc,"#002 edc-arch | APPLIED | EDC | Principal Infrastructure Platform Architect | Ref 0005R8 | Next: Monitor",2,2026-06-18,YES,pipeline
-pipeline-active,WORKING,003-boc-cloud,"#003 boc-cloud-sec | APPLIED | Bank of Canada | Cloud Security Architect | Req. 11542 | Applied 27 May | Contact: Catherine Girard (LinkedIn) | Next: Check for reply",2,2026-06-18,YES,pipeline
-pipeline-active,WORKING,004-ncc,"#004 ncc-embedded | INTERVIEW | NCC Group | Senior Security Consultant Hardware & Embedded Security | Contact: Ioana Iosep | Screening 17 Jun went very well; salary $150-175K CAD ack positively; Waterloo team | Next: Global Practice Lead call then 1hr technical interview",1,2026-06-18,YES,pipeline HIGH PRIORITY
-pipeline-active,WORKING,005-cfmws,"#005 cfmws-sa | APPLIED | CFMWS | Senior Advisor Solutions Architecture | Applied 03 Jun | Band $112K-$141K | Next: Await response",3,2026-06-03,YES,pipeline
-pipeline-active,WORKING,006-aws,"#006 aws-federal-sa | APPLIED | AWS | Senior SA Canadian Federal Government | ID 10414793 | Contact: Kirsten Robinson | Next: Monitor",3,2026-06-06,YES,pipeline
-pipeline-active,WORKING,007-008-bb,"#007 bb-qnx-sec APPLIED BlackBerry QNX Senior Cybersecurity Manager Req.20240678 Monitor || #008 bb-radar-dev APPLIED BlackBerry Radar Senior Full Stack Developer Hedge via QNX ecosystem Monitor",3,2026-06-11,YES,pipeline
-pipeline-active,WORKING,009-archesell,"#009 archesell-ai | APPLIED | ArcheSell Technologies | Founding AI Engineer | 11 Jun | Vancouver hybrid/remote | Next: Await response",3,2026-06-11,YES,pipeline
-pipeline-active,WORKING,010-corgta,"#010 corgta-camel | APPLIED | CorGTA/Client | Apache Camel Developer contract $100/hr | 11 Jun | Kafka disclosed as intro | Next: Await response",3,2026-06-11,YES,pipeline
-pipeline-active,WORKING,014-onet,"#014 onet-firmware | APPLIED | O-Net Technologies | Firmware Engineer | Score 0.741 | 12 Jun | Kanata hybrid | MATLAB/DisplayPort disclosed | Next: Await response",3,2026-06-12,YES,pipeline
-pipeline-active,WORKING,015-investiflex,"#015 investiflex-principal | SCREENING | Investiflex via Torus Talent | Principal Software Developer | 12 Jun | Contact: Sasha Uritsky sasha@investiflex.com | Teams call missed — follow-up sent | Next: Await reschedule",2,2026-06-12,YES,pipeline
-pipeline-active,WORKING,016-telesat,"#016 telesat-obpsw | APPLIED | Telesat | Principal Embedded Software Developer-Architect | Score 0.796 | 12 Jun | Ottawa hybrid | MPLS/SD-WAN disclosed | Next: Await response",3,2026-06-12,YES,pipeline
-pipeline-active,WORKING,017-portage,"#017 portage-citizenone | APPLIED | Portage CyberTech | Principal Architect CitizenOne | Score 0.681 | 13 Jun | Gatineau/NCR | French beginner disclosed | Next: Submit via BambooHR",2,2026-06-13,YES,pipeline
-pipeline-active,WORKING,018-boc-pm,"#018 boc-security-pm | APPLIED | Bank of Canada via CQ Search Group | Sr IT Security PM | Score 0.512 | 13 Jun | 2yr contract ~$120-130/hr | Next: Submit via LinkedIn 4426653158",2,2026-06-13,YES,pipeline
-pipeline-active,WORKING,021-weir-nete,"#021 weir-nete | MAYBE | Weir Marine Engineering | Systems Engineer NETE 06-806 | Score 0.621 | Halifax primary/Ottawa alternate — confirm location first | IBM DOORS gap | Next: Confirm Ottawa availability",3,2026-06-14,YES,pipeline
-pipeline-active,WORKING,022b-cgi,"#022b cgi-defence-director | APPLIED | CGI | Director Consulting Expert Defence | J0226-0115 | Applied via Njoyn | Next: Monitor",3,2026-06-14,YES,pipeline
-pipeline-active,WORKING,023-weir-sa,"#023 weir-sa | APPLIED | Weir Marine Engineering | Senior Solution Architect Science Digitalization | Score 0.847 | 14 Jun | DND Carling Campus hybrid | Portal In Progress 15 Jun | Next: Monitor",2,2026-06-15,YES,pipeline
-pipeline-active,WORKING,024-payments,"#024 payments-ca-sa | TRIAGED | Payments Canada | Senior Solution Architect Cloud & Integration | Score 0.762 | Salary $88.5K-$147.5K | Lead with integration+cloud framing (Camel/Azure/Kaiser) not CISO identity | Next: /build",1,2026-06-17,YES,pipeline
-pipeline-closed,WORKING,closed-all,"CLOSED: #011 bb-qnx-analyst REJECTED 05 Jun | #012 edc-portfolio REJECTED 03 Jun | #013 aws-db-sa REJECTED 27 May | #019 boc-detection-eng SKIPPED 14 Jun",4,2026-06-14,YES,closed pipeline
-resume-rules,PINNED,dod-embedded,"DoD/DND (2008-2018) Embedded firmware: FreeRTOS (deep); Cortex-M (DoD PEO STRI); TI DSP; UART/SPI/I2C (UAV/NATO); DisplayPort/LCD (familiar); MATLAB (academic). Always include for embedded roles.",1,2026-06-18,NO,resume rule
-resume-rules,PINNED,golang,"Go: actively learning (2026); include as Go (actively learning) — never claim production experience",1,2026-06-18,NO,resume rule
-contacts,WORKING,ioana,"Ioana Iosep (NCC Group) reply address: e33216be-e61e-4420-97c7-f8fe65278d2c@pinpoint.email — always populate To: field when drafting replies",1,2026-06-18,NO,contact
+resume-rules,PINNED,php,Add PHP (3/4/5/6) to Languages & Platforms in all resume builds — confirmed government/NRC work,1,2026-06-18,NO,resume rule
+experience-anchors,PINNED,f5,F5 Networks client (2019-2022) under saf.ai: deployed Resiliate Cybernetic Engrams for real-time anomaly detection processing ~1B HTTP req/hr. NDA on details; F5 name public-safe. Always include as bullet under saf.ai.,1,2026-06-18,NO,experience
+experience-anchors,PINNED,allen-unwin,Allen & Unwin (Australia 2002-2003) under Googgun: solved Harry Potter data leakage IBM couldn't fix in 2.5 years; fixed remotely in 5 days; travelled for zero-downtime hardening. Built gScarlet (world's first web UI for IPv4/IPv6 Linux firewall C+PHP5); sold to Morgenthaler Clinic/NRCan/NRC/CDND. Always include in Googgun section.,1,2026-06-18,NO,experience
+experience-anchors,PINNED,kaiser,Kaiser Permanente (~2014) under Trustifier: designed session-aware HTTP/HTTPS proxy (WebSphere/Java) transparently mobilizing desktop apps to iPad with zero rewrites/downtime. Always include under Trustifier.,1,2026-06-18,NO,experience
+pipeline-active,WORKING,registry,JOB PIPELINE REGISTRY | Next ID: 025 | Active: 20 | Closed: 5,2,2026-06-18,YES,index
+pipeline-active,WORKING,001-catsa,#001 catsa-ciso | SCREENING | CATSA | CISO | Taleo 2469 | Applied 27 May | Contact: Katie HR | Next: Follow up re interview timeline,2,2026-06-18,YES,pipeline
+pipeline-active,WORKING,002-edc,#002 edc-arch | APPLIED | EDC | Principal Infrastructure Platform Architect | Ref 0005R8 | Next: Monitor,2,2026-06-18,YES,pipeline
+pipeline-active,WORKING,003-boc-cloud,#003 boc-cloud-sec | APPLIED | Bank of Canada | Cloud Security Architect | Req. 11542 | Applied 27 May | Contact: Catherine Girard (LinkedIn) | Next: Check for reply,2,2026-06-18,YES,pipeline
+pipeline-active,WORKING,004-ncc,#004 ncc-embedded | INTERVIEW | NCC Group | Senior Security Consultant Hardware & Embedded Security | Contact: Ioana Iosep | Screening 17 Jun went very well; salary $150-175K CAD ack positively; Waterloo team | Next: Global Practice Lead call then 1hr technical interview,1,2026-06-18,YES,pipeline HIGH PRIORITY
+pipeline-active,WORKING,005-cfmws,#005 cfmws-sa | APPLIED | CFMWS | Senior Advisor Solutions Architecture | Applied 03 Jun | Band $112K-$141K | Next: Await response,3,2026-06-03,YES,pipeline
+pipeline-active,WORKING,006-aws,#006 aws-federal-sa | APPLIED | AWS | Senior SA Canadian Federal Government | ID 10414793 | Contact: Kirsten Robinson | Next: Monitor,3,2026-06-06,YES,pipeline
+pipeline-active,WORKING,007-008-bb,#007 bb-qnx-sec APPLIED BlackBerry QNX Senior Cybersecurity Manager Req.20240678 Monitor || #008 bb-radar-dev APPLIED BlackBerry Radar Senior Full Stack Developer Hedge via QNX ecosystem Monitor,3,2026-06-11,YES,pipeline
+pipeline-active,WORKING,009-archesell,#009 archesell-ai | APPLIED | ArcheSell Technologies | Founding AI Engineer | 11 Jun | Vancouver hybrid/remote | Next: Await response,3,2026-06-11,YES,pipeline
+pipeline-active,WORKING,010-corgta,#010 corgta-camel | APPLIED | CorGTA/Client | Apache Camel Developer contract $100/hr | 11 Jun | Kafka disclosed as intro | Next: Await response,3,2026-06-11,YES,pipeline
+pipeline-active,WORKING,014-onet,#014 onet-firmware | APPLIED | O-Net Technologies | Firmware Engineer | Score 0.741 | 12 Jun | Kanata hybrid | MATLAB/DisplayPort disclosed | Next: Await response,3,2026-06-12,YES,pipeline
+pipeline-active,WORKING,015-investiflex,#015 investiflex-principal | SCREENING | Investiflex via Torus Talent | Principal Software Developer | 12 Jun | Contact: Sasha Uritsky sasha@investiflex.com | Teams call missed — follow-up sent | Next: Await reschedule,2,2026-06-12,YES,pipeline
+pipeline-active,WORKING,016-telesat,#016 telesat-obpsw | APPLIED | Telesat | Principal Embedded Software Developer-Architect | Score 0.796 | 12 Jun | Ottawa hybrid | MPLS/SD-WAN disclosed | Next: Await response,3,2026-06-12,YES,pipeline
+pipeline-active,WORKING,017-portage,#017 portage-citizenone | APPLIED | Portage CyberTech | Principal Architect CitizenOne | Score 0.681 | 13 Jun | Gatineau/NCR | French beginner disclosed | Next: Submit via BambooHR,2,2026-06-13,YES,pipeline
+pipeline-active,WORKING,018-boc-pm,#018 boc-security-pm | APPLIED | Bank of Canada via CQ Search Group | Sr IT Security PM | Score 0.512 | 13 Jun | 2yr contract ~$120-130/hr | Next: Submit via LinkedIn 4426653158,2,2026-06-13,YES,pipeline
+pipeline-active,WORKING,021-weir-nete,#021 weir-nete | MAYBE | Weir Marine Engineering | Systems Engineer NETE 06-806 | Score 0.621 | Halifax primary/Ottawa alternate — confirm location first | IBM DOORS gap | Next: Confirm Ottawa availability,3,2026-06-14,YES,pipeline
+pipeline-active,WORKING,022b-cgi,#022b cgi-defence-director | APPLIED | CGI | Director Consulting Expert Defence | J0226-0115 | Applied via Njoyn | Next: Monitor,3,2026-06-14,YES,pipeline
+pipeline-active,WORKING,023-weir-sa,#023 weir-sa | APPLIED | Weir Marine Engineering | Senior Solution Architect Science Digitalization | Score 0.847 | 14 Jun | DND Carling Campus hybrid | Portal In Progress 15 Jun | Next: Monitor,2,2026-06-15,YES,pipeline
+pipeline-active,WORKING,024-payments,#024 payments-ca-sa | TRIAGED | Payments Canada | Senior Solution Architect Cloud & Integration | Score 0.762 | Salary $88.5K-$147.5K | Lead with integration+cloud framing (Camel/Azure/Kaiser) not CISO identity | Next: /build,1,2026-06-17,YES,pipeline
+pipeline-closed,WORKING,closed-all,CLOSED: #011 bb-qnx-analyst REJECTED 05 Jun | #012 edc-portfolio REJECTED 03 Jun | #013 aws-db-sa REJECTED 27 May | #019 boc-detection-eng SKIPPED 14 Jun,4,2026-06-14,YES,closed pipeline
+resume-rules,PINNED,dod-embedded,DoD/DND (2008-2018) Embedded firmware: FreeRTOS (deep); Cortex-M (DoD PEO STRI); TI DSP; UART/SPI/I2C (UAV/NATO); DisplayPort/LCD (familiar); MATLAB (academic). Always include for embedded roles.,1,2026-06-18,NO,resume rule
+resume-rules,PINNED,golang,Go: actively learning (2026); include as Go (actively learning) — never claim production experience,1,2026-06-18,NO,resume rule
+contacts,WORKING,ioana,Ioana Iosep (NCC Group) reply address: e33216be-e61e-4420-97c7-f8fe65278d2c@pinpoint.email — always populate To: field when drafting replies,1,2026-06-18,NO,contact
+interview-prep,WORKING,ncc-rafi-intro,"NCC Group interview prep — Global Practice Lead call with Rafi: role is Hardware & Embedded Security, team ~10 people mostly Canada/Waterloo, secure lab on-site. Key talking points: (1) DoD UAV firmware FreeRTOS/Cortex-M, (2) Exorcist IPS/IDS invention, (3) Kaiser Permanente proxy as architecture story, (4) Resiliate patent as self-defending data. Salary $150-175K CAD acknowledged positively. No US travel, surgery recovery disclosed — accepted.",1,2026-06-18,YES,NCC interview prep — load before calls
+llm-memories,PINNED,architecture,"mem-manager architecture: 30-slot Claude memory = RAM. Google Sheet (1UN8ZTFyKBZN6A7ALxA-Db2aFO3N_RM9m5vjsI4pKgR0) = backing store. Slabs = pages. page_directory.json = TLB. Slots 1-5 PINNED, slot 6 page-dir, slots 7-26 working, 27-30 scratch. MCP server on gamgee:3456, tunneled via ngrok static domain skyrocket-favoring-slum.ngrok-free.dev. GCP project: llm-cpu-498222. GitHub: ahmed-masud/mem-manager.",1,2026-06-18,NO,core architecture reference
+llm-memories,PINNED,gamgee,"gamgee specs: Ubuntu 24.04 LTS, IP 10.0.0.208, user: masud, Skylake i5-6500. Services: mem-manager.service (node mcp-server.js :3456), ngrok-mem-manager.service (tunnel :3456 → skyrocket-favoring-slum.ngrok-free.dev). Node v24.17.0, npm v11.13.0. Repo at /home/masud/mem-manager. Credentials at /home/masud/mem-manager/credentials/service-account.json. Key fix: patch.js shims window.fetch with globalThis.fetch to bypass gaxios/node-fetch v2 gzip bug on Node 22+.",1,2026-06-18,NO,gamgee server context
+llm-memories,PINNED,mcp-tools,"MCP tools live (memories connector via ngrok): mem_status, mem_list_slabs, mem_load, mem_evict, mem_evict_lru, mem_sync_pull, mem_sync_push, mem_upsert. Load workflow: mem_sync_pull → mem_load <slab> → Claude reads pending-load.json → memory_user_edits add. Evict workflow: mem_evict <slab> → Claude reads pending-evict.json → memory_user_edits remove. Scripts: status.js, load.js, evict.js, sync.js, sheets.js, patch.js, mcp-server.js, page-dir.js.",1,2026-06-18,NO,MCP tool reference and workflows
+foo-id,WORKING,foo-key-1,test-entry,2,2026-06-18,YES,
+foo-slab,WORKING,foo-slab-key-1,foo-slab-key-1 content,2,2026-06-18,YES,
+medical,PINNED,bedwani-cardiology-june2026,"CARDIOLOGY — Dr. Bedwani (Ottawa Heart Institute, cardiac surgeon), June 2026 consultation. Findings: (1) Left ventricle enlarged — normal 2–3cm, Ahmed's is 5–6cm. (2) Blood backflow issue (regurgitation), other side also enlarged. Heart muscle weak and enlarged, ventricle not pumping effectively — consistent with dilated cardiomyopathy + valve regurgitation. Plan: BOTH mitral and aortic valves to be REPLACED by Dr. Bedwani in open heart surgery. Surgery cannot happen until hemodialysis is established. Peritoneal dialysis ruled out — hemodialysis only option at this stage. Pending question: how long on hemodialysis before surgery is possible. Action: Ahmed to email Dr. Canney to inform him of findings and hemodialysis plan.",5,2026-06-19,NO,"Recorded from Ahmed's consultation with Dr. Bedwani, June 2026"
+job-pipeline,PINNED,dashboard-main,"📊 JOB PIPELINE DASHBOARD — AHMED MASUD
+Last Updated: 2026-06-19 | Active Applications: 6 | Interview Phase: 1
+
+🎯 NEXT IMMEDIATE ACTION
+Wed Jun 24, 11:00 AM–12:00 PM ET — NCC Group technical interview
+
+Interviewers: Rafi Mueen (Global Practice Lead) + Carles Pey (Technical)
+
+Platform: Teams
+
+Interview Prep Loaded: DoD UAV firmware, Exorcist IPS/IDS, Kaiser Permanente proxy story, Resiliate patent
+
+📋 ACTIVE PIPELINE (6 Applications)
+#004 — NCC GROUP | Senior Security Consultant – Hardware & Embedded Security
+Status: 🔴 INTERVIEW
+Contact: Ioana Iosep (Pinpoint: e33216be-e61e-4420-97c7-f8fe65278d2c@pinpoint.email)
+Location: Waterloo
+Salary: $150–175K CAD ✓ (acked positively)
+Timeline:
+  ✅ Jun 17: Screening call — went very well
+  ✅ Jun 19: Interview rescheduled (bank holiday conflict)
+  🔜 Jun 24, 11:00 AM ET: Technical interview with Rafi + Carles
+  🔜 After: Decision timeline (TBD)
+
+Interview Prep:
+  • DoD UAV firmware (FreeRTOS, Cortex-M, embedded real-time systems)
+  • Exorcist® IPS/IDS invention (first IPS/IDS, sold to Bell/Nortel)
+  • Kaiser Permanente transparent proxy story (guide teams without blocking delivery)
+  • Resiliate® patent (US 12,045,224) + Cybernetic Engrams® architecture
+  • Self-defending data, sub-100ms ransomware rollback
+
+Availability: Mon–Fri, 10am–12pm ET
+Special Notes: No US travel / surgery recovery disclosed — both accepted
+
+#001 — CATSA | Chief Information Security Officer (CISO)
+Status: ⏳ UNDER REVIEW
+Reference: Taleo #2469
+Contact: Katie (HR)
+Applied: May 21, 2026
+Last Update: Jun 11 (resume review ongoing)
+Next Action: Follow-up if no update by Jun 25
+
+#002 — AI INSTRUCTOR | Saudi Arabia (6-Week Program)
+Status: ✅ APPLIED
+Program Dates: Aug 9–Sep 20, 2026
+Applied: Jun 11, 2026
+Teaching Background: Popul Technologies (1996–99, co-founder), NRC/NRCan (1992–2002), Googgun Technologies (1998–2007 — DoD, DND, Hershey's, Morgen Taler)
+Pedagogical Approach: Integrated thinking — teaching across mathematics, systems, and code simultaneously
+Language: English delivery + Arabic (beginner, committed to develop)
+Next Action: Watch for program acceptance / updates
+
+#003 — iF ATHOM | Senior Cyber PM
+Status: ⏳ PENDING CLEARANCE QUESTION
+Contact: Tyler Wood
+Resume: Submitted
+Blocker: Clearance question response (from recruiter)
+Next Action: Follow-up with Tyler on clearance question
+
+#005 — BANK OF CANADA | Senior IT Security Program Manager
+Status: 📄 DOCS READY, DECISION PENDING
+Contact: CQ Search Group
+Salary: $130/hr equivalent
+Triage Score: 0.631
+Framing: Senior IT Security PM, PMBOK language, DoD program history leading
+Resume: Web-first at ahmed-masud.github.io (ready)
+Timeline: Triaged Jun 13; docs ready; awaiting submission or recruiter follow-up
+Next Action: Confirm submission status with CQ Search
+
+#006 — DOCUPET | Software Engineering Manager (E-Commerce)
+Status: ✅ APPLIED
+Reference: Indeed jk=6a2d25ca180cec4a
+Applied: Jun 16, 2026
+Triage Score: 0.581
+Framing: AWS gap disclosed; Symfony gap as ""next chapter on PHP 3 roots""; AI governance as differentiator
+Resume: ahmed-masud.github.io/resume/docupet/
+Cover Letter: ahmed-masud.github.io/resume/docupet/cover-letter.html
+Next Action: Watch for Indeed message or email from DocuPet hiring team
+
+❌ CLOSED / REJECTED
+BlackBerry/QNX Cybersecurity Analyst — REJECTED Jun 5
+EDC Principal Portfolio Delivery Mgmt — REJECTED
+
+🔧 SUPPORTING MATERIALS & TOOLS
+Web-First Resume System: FastAPI on gamgee (10.0.0.208:8000), Groq llama-3.3-70b, ngrok tunnel
+Interview Prep: ✓ DoD UAV firmware | ✓ Exorcist IPS/IDS | ✓ Kaiser Permanente proxy | ✓ Resiliate patent | ✓ NIST 800-53 | ✓ TOGAF + SABSA
+
+📞 KEY CONTACTS
+Ioana Iosep (NCC Recruiter) — e33216be-e61e-4420-97c7-f8fe65278d2c@pinpoint.email
+Rafi Mueen (NCC Global Practice Lead) — Jun 24, 11:00 AM ET
+Carles Pey (NCC Technical Interviewer) — Jun 24, 11:00 AM ET
+Tyler Wood (iF Athom Recruiter) — clearance question pending
+Katie (CATSA HR) — last: Jun 11
+
+📏 WORKFLOW RULES
+Email: googgun@gmail.com primary; Ling BCC'd on all business email
+Web-First Delivery: All new resumes → GitHub Pages (ahmed-masud.github.io/resume/{company}/)
+Tailoring: Run /triage before /build
+Interview Prep: Load materials from memory before each call
+Follow-ups: If no response within 14 days, send brief nudge
+
+✅ CHECKLIST: Before Jun 24 Interview
+ Review DoD UAV firmware notes
+ Refresh Exorcist IPS/IDS origin story + technical details
+ Run through Kaiser Permanente proxy walkthrough
+ Review Resiliate patent abstract + key differentiators
+ Confirm Teams link day-of
+ Test audio/video 10 min before call
+ Have notes on NIST 800-53 + TOGAF readily available
+
+📅 UPCOMING MILESTONES
+Jun 24, 11:00 AM ET: NCC Group technical interview
+Jun 25: CATSA follow-up checkpoint (if no update since Jun 11)
+Jun 30: Nephrology appointment (12:40 PM, RIV General)
+Jul 21: CA patent deadline (Marbury Law Group)
+Aug 9: Saudi AI program start date (if accepted)",5,2026-06-19,NO,"Main job pipeline dashboard — loaded automatically at session start. Single source of truth for all 6 active applications. Update after every significant change (interviews, rejections, new apps). PINNED, non-evictable."
+llm-memories,WORKING,dummy-load,Loading slab...,2,2026-06-20,YES,
+misc-daily-triage,WORKING,triage-2026-06-21-000,"{""key"":""triage-2026-06-21-000"",""slab_id"":""misc-daily-triage"",""text"":""new job"",""primary_tag"":""career"",""additional_tags"":[""job search"",""ncc"",""cost""],""tag_sources"":{},""status"":""pending"",""promoted_to"":null,""date_captured"":""2026-06-21"",""date_processed"":null,""reprocess_count"":0,""last_reprocessed"":null}",2,2026-06-21,NO,
+misc-daily-triage,WORKING,triage-2026-06-21-001,"{""text"":""server upgrade"",""primary_tag"":""infra"",""additional_tags"":[""servers"",""linux"",""job prep""],""tag_sources"":{},""status"":""pending"",""promoted_to"":null,""date_captured"":""2026-06-21"",""date_processed"":null,""reprocess_count"":0,""last_reprocessed"":null}",2,2026-06-21,NO,
+misc-daily-triage,WORKING,triage-2026-06-21-002,"{""key"":""triage-2026-06-21-002"",""slab_id"":""misc-daily-triage"",""text"":""doctor's appointment"",""primary_tag"":""health"",""additional_tags"":[""medical appointments"",""symptoms"",""mindfulness""],""tag_sources"":{},""status"":""done"",""promoted_to"":null,""date_captured"":""2026-06-21"",""date_processed"":""2026-06-21"",""reprocess_count"":0,""last_reprocessed"":null}",2,2026-06-21,NO,
+misc-daily-triage,WORKING,triage-2026-06-21-003,"{""text"":""paycheck"",""primary_tag"":""finance"",""additional_tags"":[""money"",""owodsp"",""cost tracking""],""tag_sources"":{},""status"":""pending"",""promoted_to"":null,""date_captured"":""2026-06-21"",""date_processed"":null,""reprocess_count"":0,""last_reprocessed"":null}",2,2026-06-21,NO,
+misc-daily-triage,WORKING,triage-2026-06-21-004,"{""text"":""new business idea"",""primary_tag"":""ideas"",""additional_tags"":[""concepts to explore"",""experiments"",""workflow""],""tag_sources"":{},""status"":""pending"",""promoted_to"":null,""date_captured"":""2026-06-21"",""date_processed"":null,""reprocess_count"":0,""last_reprocessed"":null}",2,2026-06-21,NO,
+misc-daily-triage,WORKING,triage-2026-06-21-005,"{""text"":""grocery shopping"",""primary_tag"":""life-admin"",""additional_tags"":[""errands"",""household logistics"",""productivity""],""tag_sources"":{},""status"":""pending"",""promoted_to"":null,""date_captured"":""2026-06-21"",""date_processed"":null,""reprocess_count"":0,""last_reprocessed"":null}",2,2026-06-21,NO,
+misc-daily-triage,WORKING,triage-2026-06-21-006,"{""key"":""triage-2026-06-21-006"",""slab_id"":""misc-daily-triage"",""text"":""patent filing"",""primary_tag"":""saf.ai"",""additional_tags"":[""cap table"",""patents"",""AI development""],""tag_sources"":{},""status"":""promoted"",""promoted_to"":""misc-saf.ai"",""date_captured"":""2026-06-21"",""date_processed"":""2026-06-21"",""reprocess_count"":0,""last_reprocessed"":null}",2,2026-06-21,NO,
+misc-daily-triage,WORKING,triage-2026-06-21-007,"{""key"":""triage-2026-06-21-007"",""slab_id"":""misc-daily-triage"",""text"":""family dinner"",""primary_tag"":""personal"",""additional_tags"":[""family"",""relationships"",""innovation""],""tag_sources"":{},""status"":""done"",""promoted_to"":null,""date_captured"":""2026-06-21"",""date_processed"":""2026-06-21"",""reprocess_count"":0,""last_reprocessed"":null}",2,2026-06-21,NO,
+misc-daily-triage,WORKING,test-probe-001,"{""key"":""test-probe-001"",""slab_id"":""misc-daily-triage"",""text"":""test item"",""status"":""done"",""primary_tag"":""infra"",""date_processed"":""2026-06-21""}",2,2026-06-21,NO,
+misc-saf.ai,WORKING,triage-2026-06-21-006,"{""key"":""triage-2026-06-21-006"",""slab_id"":""misc-daily-triage"",""text"":""patent filing"",""primary_tag"":""saf.ai"",""additional_tags"":[""cap table"",""patents"",""AI development""],""tag_sources"":{},""status"":""promoted"",""promoted_to"":""misc-saf.ai"",""date_captured"":""2026-06-21"",""date_processed"":""2026-06-21"",""reprocess_count"":0,""last_reprocessed"":null}",2,2026-06-21,YES,
+personal-family,WORKING,laila-ava-repair,"LAILA+AVA | Father-daughters repair. Laila(11), Ava(10), both in US with Ling. Ahmed in Ottawa. Core issue: health crisis years caused Ahmed to become short/irritable with girls; they absorbed that stress. Ava has explicitly said she wishes things were like when she was 5 — fond memories, stressed since. Laila similar. Ahmed wants to repair relationship across distance. | LING DYNAMIC: custodial parent by default, gatekeeper, unpredictable but neutral — not at war. Has asked Ahmed to submit a plan for her approval. LEGAL CAUTION: anything in writing could be used in future custody proceedings — do NOT make specific admissions of wrongdoing. Frame around health crisis context, not character failure. Consult George Windsor before writing formal plan. | FATHER'S DAY JUN 21 2026: Ling blocked calls all day. Ahmed sent SMS to Ling with embedded message for girls: ""Hi Laila, hi Ava — just wanted you to know I'm thinking of you both today and every day. I love you so much. Hope you're having a good Sunday. Miss you. — Baba."" Correctly did NOT ask for a reply back. | NEXT STEPS: (1) Ask Ling what the girls specifically need from him — softened framing; (2) Consult George Windsor before any formal written plan; (3) Build reconnection plan: consistent low-pressure contact, age-appropriate, no strings attached.",5,2026-06-21,NO,"Tags: laila, ava, daughters, family, repair, custody, ling, father-day-2026. Load when discussing daughters or family reconnection plan."
