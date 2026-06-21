@@ -18,7 +18,8 @@
  */
 
 import 'dotenv/config';
-import { readLocalCSV, pullFromSheet } from './sheets.js';
+import { pullFromSheet } from './sheets.js';
+import { dbAllRows, dbImportRows } from './db.js';
 import { readPageDir, writePageDir, getFreeSlots, today } from './page-dir.js';
 
 const LOCAL   = process.env.LOCAL_STORE_PATH;
@@ -36,9 +37,13 @@ async function main() {
   console.log(`\n📥  Loading slab: "${slabId}"\n`);
 
   // 1. Read backing store
-  const rows = remote
-    ? await pullFromSheet()
-    : readLocalCSV(LOCAL);
+  let rows;
+  if (remote) {
+    rows = await pullFromSheet();
+    dbImportRows(rows);          // keep SQLite in sync when loading from remote
+  } else {
+    rows = dbAllRows();           // fast local read
+  }
 
   // 2. Filter to requested slab
   const slabRows = rows.filter(r => r.slab_id === slabId);

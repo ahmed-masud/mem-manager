@@ -9,7 +9,8 @@
  */
 
 import 'dotenv/config';
-import { pullFromSheet, pushToSheet, readLocalCSV, writeLocalCSV, today } from './sheets.js';
+import { pullFromSheet, pushToSheet } from './sheets.js';
+import { dbAllRows, dbImportRows } from './db.js';
 
 const LOCAL  = process.env.LOCAL_STORE_PATH;
 const args   = process.argv.slice(2);
@@ -27,13 +28,13 @@ async function main() {
       console.log('⚠️   Sheet is empty. Nothing to pull.');
       return;
     }
-    writeLocalCSV(LOCAL, rows);
-    console.log(`✅  Wrote ${rows.length} rows → ${LOCAL}`);
+    dbImportRows(rows);
+    console.log(`✅  Imported ${rows.length} rows → SQLite`);
   }
 
   if (mode === 'push') {
-    console.log('⬆️   Pushing local CSV to Google Sheet...');
-    const rows = readLocalCSV(LOCAL);
+    console.log('⬆️   Pushing SQLite to Google Sheet...');
+    const rows = dbAllRows();
     await pushToSheet(rows);
     console.log(`✅  Pushed ${rows.length} rows → Sheet`);
   }

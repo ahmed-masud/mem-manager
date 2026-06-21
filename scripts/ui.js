@@ -2,18 +2,22 @@
  * ui.js — Express router for the mem-manager web UI
  * Mounted at /ui in mcp-server.js
  * Uses HTMX for dynamic fragments — no build step required.
+ *
+ * Backing store: SQLite (db.js) only. No Google Sheets dependency.
+ * CSV import/export available via the UI for backup/restore.
  */
 
 import './patch.js';
 import 'dotenv/config';
 import { Router } from 'express';
 import { execSync } from 'child_process';
+import { stringify } from 'csv-stringify/sync';
+import { parse } from 'csv-parse/sync';
 import { readPageDir, today } from './page-dir.js';
-import { pullFromSheet, pushToSheet, readLocalCSV, upsertRow } from './sheets.js';
+import { dbAllRows, dbRowsBySlab, dbUpsert, dbImportRows, getDb } from './db.js';
 
 const router = Router();
 const DIR = process.env.LOCAL_STORE_PATH?.replace('/store/master.csv', '') ?? '.';
-const LOCAL = process.env.LOCAL_STORE_PATH;
 
 function run(script, args = '') {
   try {
@@ -22,6 +26,8 @@ function run(script, args = '') {
     });
   } catch (e) { return e.stdout || e.stderr || e.message; }
 }
+
+const COLS = ['slab_id','slot_type','key','content','priority','last_accessed','evictable','notes'];
 
 // ---------------------------------------------------------------------------
 // Status bar fragment
@@ -36,39 +42,37 @@ function statusBar(msg, type = 'info') {
 // ---------------------------------------------------------------------------
 router.get('/api/status', (req, res) => {
   const dir = readPageDir();
-  const rows = readLocalCSV(LOCAL);
+  const rows = dbAllRows();
   res.json({
     slots_used: dir.slots_used,
     slots_free: dir.slots_free,
-    row_count: rows.length,
+    row_count:  rows.length,
     last_updated: dir.last_updated,
   });
 });
 
 // ---------------------------------------------------------------------------
-// POST /ui/api/sync/pull  — sheet → local CSV
+// GET /ui/api/export.csv  — download entire DB as CSV
 // ---------------------------------------------------------------------------
-router.post('/api/sync/pull', async (req, res) => {
-  try {
-    const rows = await pullFromSheet();
-    const { writeLocalCSV } = await import('./sheets.js');
-    writeLocalCSV(LOCAL, rows);
-    res.send(statusBar(`✅ Pulled ${rows.length} rows from Sheet — ${today()}`, 'ok'));
-  } catch (e) {
-    res.send(statusBar(`❌ Pull failed: ${e.message}`, 'err'));
-  }
+router.get('/api/export.csv', (req, res) => {
+  const rows = dbAllRows();
+  const csv  = stringify(rows, { header: true, columns: COLS });
+  res.setHeader('Content-Type', 'text/csv');
+  res.setHeader('Content-Disposition', `attachment; filename="mem-backup-${today()}.csv"`);
+  res.send(csv);
 });
 
 // ---------------------------------------------------------------------------
-// POST /ui/api/sync/push  — local CSV → sheet (dangerous: warns first)
+// POST /ui/api/import  — paste CSV text → bulk import into SQLite
 // ---------------------------------------------------------------------------
-router.post('/api/sync/push', async (req, res) => {
+router.post('/api/import', (req, res) => {
   try {
-    const rows = readLocalCSV(LOCAL);
-    await pushToSheet(rows);
-    res.send(statusBar(`⬆️ Pushed ${rows.length} rows to Sheet — ${today()}`, 'ok'));
+    const csv  = req.body?.csv ?? '';
+    const rows = parse(csv, { columns: true, skip_empty_lines: true });
+    const n    = dbImportRows(rows);
+    res.send(statusBar(`✅ Imported ${n} rows into SQLite — ${today()}`, 'ok'));
   } catch (e) {
-    res.send(statusBar(`❌ Push failed: ${e.message}`, 'err'));
+    res.send(statusBar(`❌ Import failed: ${e.message}`, 'err'));
   }
 });
 
@@ -79,7 +83,7 @@ export default router;
 // ---------------------------------------------------------------------------
 router.get('/api/slabs', (req, res) => {
   const dir = readPageDir();
-  const rows = readLocalCSV(LOCAL);
+  const rows = dbAllRows();
   const slabIds = [...new Set(rows.map(r => r.slab_id))];
 
   const items = slabIds.map(id => {
@@ -116,7 +120,7 @@ router.get('/api/slabs', (req, res) => {
 // ---------------------------------------------------------------------------
 router.get('/api/slabs/:id/entries', (req, res) => {
   const { id } = req.params;
-  const rows = readLocalCSV(LOCAL).filter(r => r.slab_id === id);
+  const rows = dbRowsBySlab(id);
 
   if (rows.length === 0) {
     res.send(`<p class="empty">No entries in <strong>${id}</strong>.</p>
@@ -155,12 +159,7 @@ router.get('/api/slabs/:id/entries', (req, res) => {
 // POST /ui/api/slabs/:id/load
 // ---------------------------------------------------------------------------
 router.post('/api/slabs/:id/load', (req, res) => {
-  run('sync.js', '--pull');           // sync first
-  const out = run('load.js', req.params.id);
-  // refresh slab list
-  const dir = readPageDir();
-  const rows = readLocalCSV(LOCAL);
-  const slabIds = [...new Set(rows.map(r => r.slab_id))];
+  run('load.js', req.params.id);
   res.setHeader('HX-Trigger', 'slabsChanged');
   res.redirect(303, '/ui/api/slabs');
 });
@@ -176,22 +175,17 @@ router.post('/api/slabs/:id/evict', (req, res) => {
 // ---------------------------------------------------------------------------
 // POST /ui/api/upsert  — add or update an entry
 // ---------------------------------------------------------------------------
-router.post('/api/upsert', async (req, res) => {
+router.post('/api/upsert', (req, res) => {
   const { slab_id, key, content, slot_type, priority, evictable, notes } = req.body;
   try {
-    await upsertRow({
+    dbUpsert({
       slab_id, key, content,
       slot_type: slot_type || 'WORKING',
-      priority:  priority  || 2,
+      priority:  Number(priority) || 2,
       evictable: evictable || 'YES',
-      notes:     notes     || '',
+      notes:     notes || '',
       last_accessed: today(),
     });
-    // pull to sync local
-    const pulled = await pullFromSheet();
-    const { writeLocalCSV } = await import('./sheets.js');
-    writeLocalCSV(LOCAL, pulled);
-    // tell HTMX to refresh the sidebar too
     res.setHeader('HX-Trigger-After-Swap', 'slabsChanged');
     res.redirect(303, `/ui/api/slabs/${slab_id}/entries`);
   } catch (e) {
@@ -202,13 +196,10 @@ router.post('/api/upsert', async (req, res) => {
 // ---------------------------------------------------------------------------
 // DELETE /ui/api/entry/:slab/:key
 // ---------------------------------------------------------------------------
-router.delete('/api/entry/:slab/:key', async (req, res) => {
+router.delete('/api/entry/:slab/:key', (req, res) => {
   const { slab, key } = req.params;
   try {
-    const rows = readLocalCSV(LOCAL).filter(r => !(r.slab_id === slab && r.key === key));
-    const { writeLocalCSV } = await import('./sheets.js');
-    writeLocalCSV(LOCAL, rows);
-    await pushToSheet(rows);
+    getDb().prepare('DELETE FROM entries WHERE slab_id = ? AND key = ?').run(slab, key);
     res.setHeader('HX-Trigger-After-Swap', 'slabsChanged');
     res.redirect(303, `/ui/api/slabs/${slab}/entries`);
   } catch (e) {
@@ -318,10 +309,10 @@ router.get('/', (req, res) => {
 <!-- Top bar -->
 <div id="topbar">
   <h1>🧠 mem-manager</h1>
-  <button hx-post="/ui/api/sync/pull" hx-target="#sync-status" hx-swap="innerHTML"
-          hx-on::after-request="refreshSlabs()">⬇ Pull</button>
-  <button hx-post="/ui/api/sync/push" hx-target="#sync-status" hx-swap="innerHTML"
-          hx-confirm="Push local CSV → Sheet? This overwrites the Sheet.">⬆ Push</button>
+  <a href="/ui/api/export.csv" download>
+    <button type="button">📤 Export CSV</button>
+  </a>
+  <button type="button" onclick="showImportModal()">📥 Import CSV</button>
   <div id="sync-status">Ready</div>
 </div>
 
@@ -347,6 +338,22 @@ router.get('/', (req, res) => {
         <p>Click any slab in the sidebar to view its entries.</p>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Import CSV Modal -->
+<div id="import-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center">
+  <div id="modal-box" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;width:580px;max-height:90vh;overflow-y:auto">
+    <h3 style="color:var(--accent);margin-bottom:14px">📥 Import CSV</h3>
+    <p style="color:var(--muted);font-size:11px;margin-bottom:10px">Paste CSV text (with header row: slab_id,slot_type,key,content,priority,last_accessed,evictable,notes). Existing keys are updated.</p>
+    <form hx-post="/ui/api/import" hx-target="#sync-status" hx-swap="innerHTML"
+          hx-on::after-request="closeImportModal(); refreshSlabs()">
+      <textarea name="csv" style="width:100%;height:200px;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:6px;font-family:inherit;font-size:12px;resize:vertical" placeholder="slab_id,slot_type,key,content,..."></textarea>
+      <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+        <button type="button" class="btn-cancel" onclick="closeImportModal()">Cancel</button>
+        <button type="submit" class="btn-save">Import</button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -421,9 +428,20 @@ router.get('/', (req, res) => {
   function refreshSlabs() {
     htmx.trigger(document.getElementById('slab-list'), 'slabsChanged');
   }
-  // Close modal on backdrop click
+  function showImportModal() {
+    const m = document.getElementById('import-modal');
+    m.style.display = 'flex';
+  }
+  function closeImportModal() {
+    const m = document.getElementById('import-modal');
+    m.style.display = 'none';
+  }
+  // Close modals on backdrop click
   document.getElementById('modal').addEventListener('click', e => {
     if (e.target === e.currentTarget) closeModal();
+  });
+  document.getElementById('import-modal').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeImportModal();
   });
 </script>
 </body>

@@ -8,5 +8,8 @@ node_modules/
 # macOS
 .DS_Store
 
-# Local cache backups
+# Local store files (generated)
 store/master.csv.bak
+store/mem.db
+store/mem.db-shm
+store/mem.db-wal
