@@ -104,6 +104,37 @@ curl -X POST http://localhost:3456/mcp \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"mem_sync_pull","arguments":{}}}'
 ```
 
+## Logging
+
+HTTP requests are logged via [morgan](https://github.com/expressjs/morgan) to stdout
+(captured in the process log file when running under `nohup`).
+
+**Format:**
+```
+2026-06-21T23:16:40.680Z GET /ui 200 1.195 ms - 12045
+2026-06-21T23:16:40.729Z POST /mcp 200 30.031 ms - -
+```
+`ISO-timestamp · method · URL · HTTP-status · response-time · content-length`
+
+**`GET /health` is suppressed** — excluded via morgan's `skip` option to avoid
+polluting the log with health-check polling noise.
+
+**Tail logs live:**
+```bash
+tail -f /tmp/mem-manager.log
+```
+
+**Typical response times** (all reads are local SQLite — no network):
+
+| Endpoint | p50 |
+|---|---|
+| `GET /health` | ~1ms (suppressed) |
+| `GET /ui` | ~1ms |
+| `GET /ui/api/slabs` | ~1ms |
+| `GET /ui/api/export.csv` | ~3ms |
+| `POST /mcp` (`mem_list_slabs`) | ~30ms |
+| `POST /mcp` (`mem_upsert`) | ~5ms |
+
 ## Slot Layout
 
 | Slots | Type | Contents |
